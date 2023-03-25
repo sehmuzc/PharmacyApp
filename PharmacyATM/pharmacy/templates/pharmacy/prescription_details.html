@@ -1,0 +1,63 @@
+{% extends "pharmacy/base.html" %}
+
+{% block content %}
+
+ <article class="media content-section">
+      <div class="media-body">
+  <h2>Prescription Details </h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Patient:</th>
+        <td>{{ prescription.patient }}</td>
+      </tr>
+      <tr>
+        <th>Doctor:</th>
+        <td>{{ prescription.doctor }}</td>
+      </tr>
+      <tr>
+        <th>Date Prescribed:</th>
+        <td>{{ prescription.date_prescribed }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Medicines</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Quantity</th>
+        <th>Dosage Instructions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prescription_medicine in prescription.prescriptionmedicine_set.all %}
+        <tr>
+          <td>{{ prescription_medicine.medicine.name }}</td>
+          <td>{{ prescription_medicine.quantity }}</td>
+          <td>{{ prescription_medicine.dosage_instructions }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No medicines found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+        </table>
+
+    {% if user.userprofile.role == 'Doctor' %}
+        <div>
+          <a href="{% url 'add_medicine_to_prescription' prescription.pk %}" class="btn btn-primary">Add Medicine</a>
+        </div>
+    {% elif user.userprofile.role == 'Patient' %}
+        <div>
+        <a href="{% url 'get_medicine_from_atm' pk=prescription.pk %}" class="btn btn-success">Get My Meds from ATM</a>
+
+        </div>
+    {% endif %}
+
+
+        <img src="{{ MEDIA_URL }}qr_codes/qr_{{ prescription.pk }}.png" alt="QR code" width="200" height="200">
+    </div>
+</article>
+{% endblock %}

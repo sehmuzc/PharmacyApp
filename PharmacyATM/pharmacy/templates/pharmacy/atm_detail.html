@@ -1,0 +1,26 @@
+{% extends 'pharmacy/base.html' %}
+
+{% block content %}
+<h1>{{ atm }}</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Medicine Name</th>
+      <th>Stock Level</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for atm_medicine in atm_medicines %}
+    <tr>
+      <td>{{ atm_medicine.medicine.name }}</td>
+      <td>{{ atm_medicine.stock_level }}</td>
+      <td>{{ atm_medicine.medicine.price }}</td>
+      <td>{{ atm_medicine.medicine.description }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

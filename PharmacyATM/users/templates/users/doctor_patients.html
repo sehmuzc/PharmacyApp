@@ -1,0 +1,20 @@
+{% extends "pharmacy/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+  <p>Doctor: {{ request.user.userprofile }}</p>
+  <div>
+    {% if patients %}
+      <ul>
+        {% for patient in patients %}
+          <li><a href="{% url 'patient_prescriptions' patient.user_profile.pk %}">{{ patient }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No patients found.</p>
+    {% endif %}
+  </div>
+           </div>
+       </article>
+{% endblock %}

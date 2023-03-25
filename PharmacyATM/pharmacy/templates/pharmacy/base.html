@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--Custom css ADD HERE-->
+
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{%static 'pharmacy/main.css' %}">
+
+	{% if title %}
+		<title> PharmacyATM - {{title}}</title>
+	{% else %}
+		<title> PharmacyATM </title>
+	{% endif %}
+</head>
+
+<body>
+
+<header class="site-header">
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
+    <div class="container">
+      <a class="navbar-brand mr-4" href="{% url 'pharmacy-home' %}"> 💊 PharmacyATM 🏧 </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" href="{#}"> All Medicines </a>
+{% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'my_prescriptions' %}">My Prescriptions</a>
+            <a class="nav-item nav-link" href="{% url 'atm_list' %}"}">ATM List</a>
+              {% if user.userprofile.role == 'Doctor' %}
+                  <a class="nav-item nav-link" href="{% url 'doctor_patients' %}">My Patients</a>
+              {% endif %}
+
+            <!--<form class="form-inline my-2 my-lg-0" method = POST action="#">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" placeholder="Search PharmacyATM" aria-label="Search" name="searched">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>-->
+{% endif %}
+        </div>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav ml-auto">
+  		{% if user.is_authenticated %}
+          <span class="navbar-text mr-3">Welcome, {{ user.first_name }}!</span>
+    	<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+		{% else %}
+          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+		{% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if messages %}
+	{% for message in messages %}
+	    <div class="alert alert-{{ message.tags}}">
+		{{ message}}
+		</div>
+	 {% endfor %}
+	{% endif %}
+      {% block content %}{% endblock %}
+    </div>
+    <div class="col-md-4">
+      <div class="content-section">
+        <h3>Popular Functions</h3>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light"> <a href="{% url 'give_prescription' %}">Prescription Entry</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'qrupload' %}">QR Upload</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'atm_list' %}">ATM List</a></li>
+           </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+      <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
