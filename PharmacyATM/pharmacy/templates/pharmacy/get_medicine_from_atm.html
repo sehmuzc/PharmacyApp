@@ -1,0 +1,19 @@
+{% extends "pharmacy/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+  <h3>Get Your Medicine from ATM</h3>
+  <form method="POST">
+    {% csrf_token %}
+    {{ atm_form.as_p }}
+    {{ form.as_p }}
+            <p>Total Price: {{ total_price }} TL</p>
+    <button type="submit" class="btn btn-primary">Get My Medicine</button>
+  </form>
+
+      </div>
+</article>
+{% endblock %}
+

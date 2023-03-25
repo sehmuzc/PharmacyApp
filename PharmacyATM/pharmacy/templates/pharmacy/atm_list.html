@@ -1,0 +1,18 @@
+{% extends "pharmacy/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+    <h1>ATM List</h1>
+    <ul>
+        {% for atm in atms %}
+            <li><a href="{% url 'atm_detail' pk=atm.pk %}">{{ atm }}</a></li>
+        {% empty %}
+            <li>No ATMs found.</li>
+        {% endfor %}
+    </ul>
+
+        </div>
+       </article>
+{% endblock %}

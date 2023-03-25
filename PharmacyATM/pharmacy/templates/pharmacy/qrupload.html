@@ -1,0 +1,63 @@
+{% extends "pharmacy/base.html" %}
+
+{% block content %}
+
+    <article class="media content-section">
+        <div class="media-body">
+<h1>Upload QR Code</h1>
+<p>Please choose the file containing QR code and click Upload button.</p>
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+    {{ error_message }}
+</div>
+{% endif %}
+
+<!-- HTML code -->
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="qr_file" id="qr_file_input" style="display: none;" onchange="updateFileName(this)">
+  <label for="qr_file_input" id="qr_file_label">Choose File</label>
+    <button type="submit" id="upload_button">Upload</button>
+</form>
+
+<script>
+  function updateFileName(input) {
+    var fileName = input.value.split('\\').pop();
+    var label = document.querySelector('label[for=qr_file_input]');
+    label.textContent = fileName;
+  }
+</script>
+
+<!-- CSS code -->
+<style>
+  #qr_file_label {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  #qr_file_label:hover {
+    background-color: #3e8e41;
+  }
+
+  #upload_button {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  #upload_button:hover {
+    background-color: #0e91d5;
+
+</style>
+
+
+           </div>
+       </article>
+{% endblock %}
