@@ -2,7 +2,7 @@
 {% block content %}
     <article class="media content-section">
         <div class="media-body">
-            <p class="article-content"> <span class="navbar-text mr-3">Welcome, {{ user.first_name }}!</span> </p>
+            <p class="article-content"> <span class="navbar-text mr-3">Welcome {{ user.first_name }}!</span> </p>
             {% if request.user.is_authenticated %}
                 <p>Your role: {{ request.user.userprofile.role }}</p>
             {% endif %}

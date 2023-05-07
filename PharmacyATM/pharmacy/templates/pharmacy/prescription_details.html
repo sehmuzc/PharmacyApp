@@ -1,5 +1,4 @@
 {% extends "pharmacy/base.html" %}
-
 {% block content %}
 
  <article class="media content-section">
@@ -50,10 +49,14 @@
           <a href="{% url 'add_medicine_to_prescription' prescription.pk %}" class="btn btn-primary">Add Medicine</a>
         </div>
     {% elif user.userprofile.role == 'Patient' %}
+           {% if prescription.status == 'active' %}
         <div>
-        <a href="{% url 'get_medicine_from_atm' pk=prescription.pk %}" class="btn btn-success">Get My Meds from ATM</a>
-
+            <a href="{% url 'get_medicine_from_atm' pk=prescription.pk %}" class="btn btn-primary">Get My Meds from ATM</a>
+            <a href="{% url 'get_medicine_delivered' pk=prescription.pk %}" class="btn btn-success">Bring My Meds to Home</a>
         </div>
+
+            {% endif %}
+
     {% endif %}
 
 

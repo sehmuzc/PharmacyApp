@@ -1,6 +1,8 @@
 {% extends 'pharmacy/base.html' %}
 
 {% block content %}
+<article class="media content-section">
+  <div class="media-body">
 <h1>{{ atm }}</h1>
 
 <table class="table">
@@ -23,4 +25,10 @@
     {% endfor %}
   </tbody>
 </table>
+
+    <a href="{% url 'add_medicine_to_atm' atm.id %}" class="btn btn-primary">Add Medicine</a>
+    <a href="{% url 'medicine_usages' pk=atm.id %}" class="btn btn-success">Medicine Usages</a>
+    <a href="{% url 'medicine_sales' atm_id=atm.id %}" class="btn btn-danger">Medicine Sales</a>
+  </div>
+</article>
 {% endblock %}

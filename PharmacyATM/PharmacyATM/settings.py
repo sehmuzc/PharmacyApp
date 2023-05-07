@@ -81,12 +81,26 @@ WSGI_APPLICATION = 'PharmacyATM.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+      'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+            }
+}
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Pharmacy-mysql',
+        'USER': 'root',
+        'PASSWORD': '135135',
+        'HOST': 'db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -139,3 +153,11 @@ MEDIA_URL ='/media/'
 
 LOGIN_REDIRECT_URL ='pharmacy-home'
 LOGIN_URL ='login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "pharmacyatm2023@gmail.com"
+EMAIL_HOST_PASSWORD = "rqmvezikvlzmmydh"
+DEFAULT_FROM_EMAIL = "pharmacyatm2023@gmail.com"

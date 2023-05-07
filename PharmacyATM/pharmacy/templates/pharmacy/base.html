@@ -40,7 +40,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarToggle">
         <div class="navbar-nav mr-auto">
-          <a class="nav-item nav-link" href="{#}"> All Medicines </a>
+
 {% if user.is_authenticated %}
             <a class="nav-item nav-link" href="{% url 'my_prescriptions' %}">My Prescriptions</a>
             <a class="nav-item nav-link" href="{% url 'atm_list' %}"}">ATM List</a>
@@ -90,6 +90,7 @@
             <li class="list-group-item list-group-item-light"> <a href="{% url 'give_prescription' %}">Prescription Entry</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'qrupload' %}">QR Upload</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'atm_list' %}">ATM List</a></li>
+             <li class="list-group-item list-group-item-light"><a href="{% url 'atm_create' %}">Create ATM</a></li>
            </ul>
         </p>
       </div>
