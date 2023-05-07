@@ -1,6 +1,21 @@
 from django import forms
-from .models import Prescription, Medicine, PrescriptionMedicine, ATM
-from users.models import Patient
+from .models import Prescription, Medicine, PrescriptionMedicine, ATM, ATMMedicine
+
+
+class ATMForm(forms.ModelForm):
+    class Meta:
+        model = ATM
+        fields = ['city', 'county', 'owner_email' , 'total_cash']
+
+class ATMMedicineForm(forms.ModelForm):
+    class Meta:
+        model = ATMMedicine
+        fields = ['medicine', 'stock_level']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['medicine'].queryset = Medicine.objects.all()
+
 
 class PrescriptionForm(forms.ModelForm):
 
@@ -12,8 +27,12 @@ class PrescriptionMedicineForm(forms.ModelForm):
     class Meta:
         model = PrescriptionMedicine
         fields = ['medicine', 'quantity', 'dosage_instructions']
-
-
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.price = instance.medicine.price
+        if commit:
+            instance.save()
+        return instance
 
 class SelectATMForm(forms.Form):
     atm = forms.ModelChoiceField(queryset=ATM.objects.all(), empty_label=None, label='Select an ATM')
